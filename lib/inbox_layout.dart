@@ -4,13 +4,27 @@ import 'package:shimmer/shimmer.dart';
 
 import 'component/component_navigations.dart';
 import 'component/component_style_guides.dart';
+import 'detail/detail_inbox_layout.dart';
 import 'detail/detail_inbox_page.dart';
 import 'model/model.dart';
 
 class InboxLayout extends StatefulWidget {
   final List<Data> dataListInbox;
+  final ValueChanged<Data> onDeleteTap;
+  final ValueChanged<Data> onDetailTap;
+  final ValueChanged<bool> onRefresh;
+  final bool showLoading;
+  final String titleListInbox;
+  final String titleDetailListInbox;
 
-  const InboxLayout({Key key, this.dataListInbox}) : super(key: key);
+  const InboxLayout({Key key,
+    this.dataListInbox,
+    this.onDeleteTap,
+    this.onDetailTap,
+    this.onRefresh,
+    this.showLoading,
+    this.titleListInbox,
+    this.titleDetailListInbox}) : super(key: key);
 
   @override
   _InboxLayoutState createState() => _InboxLayoutState();
@@ -18,7 +32,6 @@ class InboxLayout extends StatefulWidget {
 
 class _InboxLayoutState extends State<InboxLayout> {
   bool showShimmer = false;
-  //List<Data> dataListInbox = new List();
   int index = 0;
   ScrollController scrollController;
   bool isLoadingMore = false;
@@ -38,6 +51,13 @@ class _InboxLayoutState extends State<InboxLayout> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(widget.showLoading == true){
+      showShimmer = true;
+    }else {
+      showShimmer = false;
+    }
+
     Widget shimmerLayout = Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
       Expanded(
         child: Container(
@@ -113,7 +133,7 @@ class _InboxLayoutState extends State<InboxLayout> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: ComponentNavigations.defaultAppBar(context, 'Inbox', null, null, false, null, null),
+      appBar: ComponentNavigations.defaultAppBar(context, widget.titleListInbox, null, null, false, null, null),
       body: Container(
         color: ColorStyled.mySecondAlternativeColor,
         width: double.infinity,
@@ -171,12 +191,13 @@ class _InboxLayoutState extends State<InboxLayout> {
                                 actionExtentRatio: 0.25,
                                 child: GestureDetector(
                                   onTap: () {
+                                    widget.onDetailTap(widget.dataListInbox[index]);
                                     Navigator.of(context).push(
                                       PageRouteBuilder(
                                         opaque: false,
                                         pageBuilder: (BuildContext context, _, __) =>
-                                            DetailInboxPage(
-                                          itemListModel: widget.dataListInbox[index],
+                                            DetailInboxLayout(
+                                          itemListModel: widget.dataListInbox[index], titleDetailListInbox: widget.titleDetailListInbox
                                         ),
                                       ),
                                     );
@@ -261,7 +282,9 @@ class _InboxLayoutState extends State<InboxLayout> {
                                     color: Colors.red,
                                     icon: Icons.delete,
                                     caption: "Delete",
-                                    onTap: () {},
+                                    onTap: () {
+                                      widget.onDeleteTap(widget.dataListInbox[index]);
+                                    },
                                   )
                                 ],
                               ),
@@ -288,10 +311,7 @@ class _InboxLayoutState extends State<InboxLayout> {
           onRefresh: () async {
             showShimmer = true;
             index = 0;
-            //widget.dataListInbox.clear();
-            setState(() {
-              showShimmer = false;
-            });
+            widget.onRefresh(true);
           },
         ),
       ),

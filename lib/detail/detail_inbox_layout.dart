@@ -7,7 +7,9 @@ import 'package:neuron_inbox/model/model.dart';
 
 class DetailInboxLayout extends StatefulWidget {
   final Data itemListModel;
-  DetailInboxLayout({Key key, @required this.itemListModel}) : super(key: key);
+  final String titleDetailListInbox;
+
+  DetailInboxLayout({Key key, @required this.itemListModel, this.titleDetailListInbox}) : super(key: key);
 
   @override
   _DetailInboxLayoutState createState() => _DetailInboxLayoutState();
@@ -67,7 +69,7 @@ class _DetailInboxLayoutState extends State<DetailInboxLayout> {
     final _scaffold = Scaffold(
       backgroundColor: ColorStyled.mySecondAlternativeColor,
       appBar: ComponentNavigations.defaultAppBar(
-          context, 'Detail Inbox', null, null, true, null, null),
+          context, widget.titleDetailListInbox, null, null, true, null, null),
       body: Container(
         child: ListView(
           padding: EdgeInsets.all(16),

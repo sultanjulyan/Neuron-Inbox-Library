@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:neuron_inbox/inbox_layout.dart';
 import 'package:neuron_inbox/model/model.dart';
-import 'package:neuron_inbox/neuron_inbox.dart';
 
 void main() => runApp(MyApp());
 

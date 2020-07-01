@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:neuroninbox/neuron_inbox.dart';
+import 'package:neuron_inbox/neuron_inbox.dart';
 
 void main() {
   test('adds one to input values', () {

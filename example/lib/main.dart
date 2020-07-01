@@ -28,21 +28,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Data> dataList = new List();
-  Timer _timer;
-  int _start = 3;
 
   @override
   void initState() {
-    dataList.add(new Data(data1: '1', data2: 'Info Tagihan Januari', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Januari-2020'));
-    dataList.add(new Data(data1: '1', data2: 'Info Tagihan Februari', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Februari-2020'));
-    dataList.add(new Data(data1: '1', data2: 'Info Tagihan Maret', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Maret-2020'));
+    dataList.add(new Data(data1: '2', data2: 'Info Tagihan Januari', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Januari-2020'));
+    dataList.add(new Data(data1: '2', data2: 'Info Tagihan Februari', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Februari-2020'));
+    dataList.add(new Data(data1: '2', data2: 'Info Tagihan Maret', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Maret-2020'));
     dataList.add(new Data(data1: '1', data2: 'Info Tagihan April', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-April-2020'));
     dataList.add(new Data(data1: '1', data2: 'Info Tagihan Mei', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Mei-2020'));
-    dataList.add(new Data(data1: '1', data2: 'Info Tagihan Juni', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Juni-2020'));
+    dataList.add(new Data(data1: '2', data2: 'Info Tagihan Juni', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Juni-2020'));
     dataList.add(new Data(data1: '1', data2: 'Info Tagihan Juli', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Juli-2020'));
     dataList.add(new Data(data1: '1', data2: 'Info Tagihan Agustus', data3: 'Harap bayar tagihan bulan ini segera, jika tidak segera membayar akan dikenakan denda 100%', data4: '1-Agustus-2020'));
 
-    //startTimer();
     super.initState();
   }
 
@@ -58,12 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  loadInboxLayout(dataList, showLoading, titleListInbox, titleDetailListInbox){
+  InboxLayout loadInboxLayout(dataList, showLoading, titleListInbox, titleDetailListInbox){
     return InboxLayout(
       dataListInbox: dataList,
       showLoading: showLoading,
       titleListInbox: titleListInbox,
       titleDetailListInbox: titleDetailListInbox,
+      imageRead: 'assets/images/dot_grey.png',
+      imageUnRead: 'assets/images/dot.png',
       onDeleteTap: (value){
         print('Deleted '+value.toString());
       },
@@ -76,25 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
           loadInboxLayout(dataList, true, 'Inbox', 'Detail Inbox');
         });
       },
-    );
-  }
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-          (Timer timer) => setState(
-            () {
-          if (_start < 1) {
-            setState(() {
-              loadInboxLayout(dataList, false);
-            });
-            timer.cancel();
-          } else {
-            _start = _start - 1;
-          }
-        },
-      ),
+      endOfList: (value){
+        print('End of list '+value.toString());
+      },
     );
   }
 }

@@ -1,8 +1,7 @@
 name: neuron_inbox
-description: A new Flutter package.
+description: Flutter inbox package from Neuron with love.
 version: 0.0.1
-author:
-homepage:
+homepage: https://github.com/sultanjulyan/Neuron-Inbox-Library
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -31,6 +30,7 @@ flutter:
 
   assets:
     - assets/images/dot_grey.png
+    - assets/images/dot.png
 
   # To add assets to your package, add an assets section, like this:
   # assets:

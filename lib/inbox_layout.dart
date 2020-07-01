@@ -16,6 +16,9 @@ class InboxLayout extends StatefulWidget {
   final bool showLoading;
   final String titleListInbox;
   final String titleDetailListInbox;
+  final ValueChanged<bool> endOfList;
+  final String imageRead;
+  final String imageUnRead;
 
   const InboxLayout({Key key,
     this.dataListInbox,
@@ -24,7 +27,10 @@ class InboxLayout extends StatefulWidget {
     this.onRefresh,
     this.showLoading,
     this.titleListInbox,
-    this.titleDetailListInbox}) : super(key: key);
+    this.titleDetailListInbox,
+    this.endOfList,
+    this.imageRead,
+    this.imageUnRead}) : super(key: key);
 
   @override
   _InboxLayoutState createState() => _InboxLayoutState();
@@ -40,6 +46,7 @@ class _InboxLayoutState extends State<InboxLayout> {
     print(scrollController.position.extentAfter);
     if (scrollController.position.extentAfter == 0) {
       index = index + 10;
+      widget.endOfList(true);
     }
   }
 
@@ -217,12 +224,12 @@ class _InboxLayoutState extends State<InboxLayout> {
                                                 EdgeInsets.only(top: 5.0, right: 12.0, left: 8.0),
                                             child: widget.dataListInbox[index].data1 == '1'
                                                 ? Image.asset(
-                                                    "assets/images/dot_grey.png",
+                                                    widget.imageRead,
                                                     height: 10,
                                                     width: 10,
                                                   )
                                                 : Image.asset(
-                                                    "assets/images/dot.png",
+                                                    widget.imageUnRead,
                                                     height: 10,
                                                     width: 10,
                                                   ),
